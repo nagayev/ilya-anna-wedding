@@ -1,0 +1,11 @@
+@charset "UTF-8";@font-face {
+    src: url("https://demo-27.wedw.ru/templates/yootheme_child/fonts/Floriselscript-Thin.woff2") format("woff2");
+    font-family: "Floriselscript Thin";
+    font-display: swap
+}
+
+@font-face {
+    src: url("https://demo-27.wedw.ru/templates/yootheme_child/fonts/Caveat-Regular.woff2") format("woff2");
+    font-family: "Caveat Reg";
+    font-display: swap
+}
