@@ -3,8 +3,10 @@
 const E = window.UIkit && Object.prototype.hasOwnProperty.call(window.UIkit, "default") ? window.UIkit.default : window.UIkit
   , {$: L, $$: O, html: D, observeIntersection: Z} = window.UIkit.util;
 async function k(e, {type: n, center: a, zoom: t, fit_bounds: o, min_zoom: P, max_zoom: x, zooming: y, dragging: A, clustering: I, cluster_icons: p, controls: G, markers: h=[], popup_max_width: S}) {
-    const r = new URL(import.meta.url).pathname + "/../../../leaflet"
-      , b = [await import(`${r}/leaflet/dist/leaflet.js`), await C(`${r}/leaflet/dist/leaflet.css`)];
+    /*const r = new URL(import.meta.url).pathname + "/../../../leaflet"
+      , b = [await import(`${r}/leaflet/dist/leaflet.js`), await C(`${r}/leaflet/dist/leaflet.css`)];*/
+    const r = new URL('https://nagayev.github.io/ilya-anna-wedding/templates/yootheme/assets/leaflet/');
+    const b =  [await import(`${r}/leaflet/dist/leaflet.js`), await C(`${r}/leaflet/dist/leaflet.css`)]; 
     I && b.push(await import(`${r}/markercluster/dist/leaflet.markercluster.js`), await C(`${r}/markercluster/dist/MarkerCluster.css`), await C(`${r}/markercluster/dist/MarkerCluster.Default.css`)),
     await Promise.all(b);
     const {L: i} = window;
