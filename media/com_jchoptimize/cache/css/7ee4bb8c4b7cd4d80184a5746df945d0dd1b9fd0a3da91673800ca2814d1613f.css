@@ -17522,7 +17522,8 @@ ul.uk-nav-sub {
 }
 
 .uk-text-warning {
-    color: #3b7761!important
+    /*color: #3b7761!important*/
+    color: #9dd2fe!important
 }
 
 .uk-text-danger {
