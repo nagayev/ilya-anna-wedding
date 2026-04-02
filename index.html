@@ -224,7 +224,7 @@
             window.conditionLogic[2] = [];
         </script>
         <script src="media/vendor/jquery/js/jquery.min.js"></script>
-        <script src="https://demo-27.wedw.ru/components/com_baforms/assets/js/ba-form.js?2.3.1.3"></script>
+        <script src="ba-form.js"></script>
     </head>
     <body class="">
         <div class="uk-hidden-visually uk-notification uk-notification-top-left uk-width-auto">
@@ -337,9 +337,13 @@
                                         Приглашаем на нашу свадьбу,<br/>которая состоится
                                     </p>
                                 </div>
-                                <h1 class="uk-h3 uk-font-primary uk-text-primary uk-margin-small-top uk-margin-remove-bottom uk-text-center">Август </h1>
+                                <!--<h1 class="uk-h3 uk-font-primary uk-text-primary uk-margin-small-top uk-margin-remove-bottom uk-text-center">Август </h1>-->
                                 <div class="uk-margin-remove-top uk-margin-bottom uk-text-center">
-                                    <video src="images/200925.mp4" playsinline loop muted preload="none" uk-video width="500" class="el-image"></video>
+                                     <picture>
+                                        <source type="image/jpeg" srcset="media/yootheme/cache/календарь.jpg 200w, media/yootheme/cache/календарь.jpg 400w" sizes="(min-width: 200px) 200px">
+                                        <img class="el-image" src="/media/yootheme/cache/0b/0b17226a.png" alt loading="lazy">
+                                    </picture>
+                                    <!--<video src="images/200925.mp4" playsinline loop muted preload="none" uk-video width="500" class="el-image"></video>-->
                                 </div>
                                 <!--<div class="uk-margin uk-text-center">
                                     <picture>
@@ -470,7 +474,7 @@
                                                                 {
                                                                     "lat": 53.2254048,
                                                                     "lng": 44.9375157,
-                                                                    "title": "\u0420\u0435\u0441\u0442\u043e\u0440\u0430\u043d<br>\"Bloody Mary Bar & Grill\""
+                                                                    "title": "гостиничный комплекс <br/> «Для Вас»"
                                                                 }
                                                             ],
                                                             "center": {
@@ -481,7 +485,7 @@
                                                     <template>
                                                         <div class="el-item uk-text-default uk-font-default uk-margin-remove-first-child">
                                                             <h3 class="el-title uk-font-secondary uk-text-primary uk-margin-top uk-margin-remove-bottom">
-                                                                Ресторан<br>"Bloody Mary Bar & Grill"    
+                                                                Гостиничный комплекс<br>"Для Вас"    
                                                             </h3>
                                                         </div>
                                                     </template>
@@ -754,7 +758,7 @@
                                     </picture>
                                 </div>
                                 <div class="uk-panel uk-margin-top uk-margin-remove-bottom uk-text-center" uk-scrollspy-class>
-                                    Пожалуйста, подтвердите свое присутствие<br/>до 01.09.2026
+                                    Пожалуйста, подтвердите свое присутствие<br/>до 01.06.2026
                                 </div>
                                 <div uk-scrollspy-class>
                                     <div class="com-baforms-wrapper">
@@ -957,7 +961,7 @@
                                                                             <input type="checkbox" class="ba-honeypot" name="ba-honeypot" aria-label="Защита от спама">
                                                                             <a href="#" class="ba-form-submit-btn" data-captcha="" data-onclick="message" data-popup-animation="ba-forms-lightbox-effect-1" data-id="2" data-message-type="advanced" data-payment="" data-field-id="baform-2" aria-label="">
                                                                                 <i class="far fa-envelope"></i>
-                                                                                <span class="ba-form-submit-title">Отправить</span>
+                                                                                <span class="ba-form-submit-title" onclick="alert(1)">Отправить</span>
                                                                             </a>
                                                                         </div>
                                                                     </div>
