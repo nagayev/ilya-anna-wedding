@@ -10,7 +10,7 @@ async function k(e, {type: n, center: a, zoom: t, fit_bounds: o, min_zoom: P, ma
     I && b.push(await import(`${r}/markercluster/dist/leaflet.markercluster.js`), await C(`${r}/markercluster/dist/MarkerCluster.css`), await C(`${r}/markercluster/dist/MarkerCluster.Default.css`)),
     await Promise.all(b);
     const {L: i} = window;
-    //i.Icon.Default.imagePath = `${r}/leaflet/dist/images/`;
+    i.Icon.Default.imagePath = `${r}/leaflet/dist/images/`;
     const d = i.map(e, {
         zoom: t,
         minZoom: Number(P),
