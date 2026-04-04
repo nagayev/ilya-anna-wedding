@@ -643,7 +643,7 @@ formsApp.lightboxScroll = function($this, scroll){
 formsApp.checkAlert = function(form){
     form.find('.confirm-email-wrapper').find('input').each(function(){
         let alert = !this.value.trim(),
-            key = 'THIS_FIELD_REQUIRED';
+            key = 'Заполните, пожалуйста, это поле';
         if (this.value) {
             alert = !(/@/g.test(this.value) && this.value.match(/@/g).length == 1);
             key = 'ENTER_VALID_VALUE';
@@ -659,13 +659,13 @@ formsApp.checkAlert = function(form){
         if (this.dataset.required) {
             let alert = this.signature.isEmpty(),
                 container = this.querySelector('.ba-field-container');
-            formsApp.toggleAlertTooltip(alert, container, container, 'THIS_FIELD_REQUIRED');
+            formsApp.toggleAlertTooltip(alert, container, container, 'Заполните, пожалуйста, это поле');
         }
     })
     form.find('.confirm-password-wrapper').find('input').each(function(){
         let password = this.closest('.ba-form-field-item').querySelector('.ba-input-wrapper input').value.trim(),
             alert = this.required && !this.value.trim(),
-            key = 'THIS_FIELD_REQUIRED';
+            key = 'Заполните, пожалуйста, это поле';
         if (password) {
             alert = !(password == this.value.trim());
             key = 'PASSWORDS_NOT_MATCH';
@@ -674,7 +674,7 @@ formsApp.checkAlert = function(form){
     });
     form.find('.ba-form-input-field, .ba-form-address-field').find(' > .ba-input-wrapper').find('input, textarea').each(function(){
         let alert = this.required && !this.value.trim(),
-            key = 'THIS_FIELD_REQUIRED';
+            key = 'Заполните, пожалуйста, это поле';
         if (this.formsInputMask) {
             alert = this.required && this.value == this.formsInputMask;
         }
@@ -698,7 +698,7 @@ formsApp.checkAlert = function(form){
     });
     form.find('.ba-form-phone-field input.ba-phone-number-input').each(function(){
         let alert = this.required && this.value == this.formsInputMask,
-            key = 'THIS_FIELD_REQUIRED';
+            key = 'Заполните, пожалуйста, это поле';
         if (!alert && this.value) {
             alert = this.value != this.formsInputMask && this.value.indexOf('_') != -1;
             key = 'ENTER_VALID_VALUE';
@@ -707,7 +707,7 @@ formsApp.checkAlert = function(form){
     });
     form.find('.ba-form-upload-field').find('input[type="file"]').each(function(){
         let alert = this.required && this.uploads.count == 0;
-        formsApp.toggleAlertTooltip(alert, this, this.closest('.upload-file-input'), 'THIS_FIELD_REQUIRED');
+        formsApp.toggleAlertTooltip(alert, this, this.closest('.upload-file-input'), 'Заполните, пожалуйста, это поле');
     });
     form.find('.ba-form-field-item').find('.ba-form-rating-group-wrapper').each(function(){
         if (this.dataset.required) {
@@ -718,7 +718,7 @@ formsApp.checkAlert = function(form){
                     return false;
                 }
             })
-            formsApp.toggleAlertTooltip(alert, this, this.closest('.ba-form-rating-group-wrapper'), 'THIS_FIELD_REQUIRED');
+            formsApp.toggleAlertTooltip(alert, this, this.closest('.ba-form-rating-group-wrapper'), 'Заполните, пожалуйста, это поле');
         }
     });
     form.find('.ba-form-field-item').find('.ba-form-checkbox-group-wrapper').each(function(){
@@ -730,12 +730,12 @@ formsApp.checkAlert = function(form){
                     return false;
                 }
             })
-            formsApp.toggleAlertTooltip(alert, this, this.closest('.ba-form-checkbox-group-wrapper'),'THIS_FIELD_REQUIRED');
+            formsApp.toggleAlertTooltip(alert, this, this.closest('.ba-form-checkbox-group-wrapper'),'Заполните, пожалуйста, это поле');
         }
     });
     form.find('.ba-form-dropdown-field, .ba-form-select-multiple-field').find('select').each(function(){
         let alert = this.required && !this.value.trim();
-        formsApp.toggleAlertTooltip(alert, this, this.closest('.ba-field-container'), 'THIS_FIELD_REQUIRED');
+        formsApp.toggleAlertTooltip(alert, this, this.closest('.ba-field-container'), 'Заполните, пожалуйста, это поле');
     });
     form.find('.ba-form-acceptance-field').find('.ba-field-container').each(function(){
         if (this.dataset.required) {
@@ -746,11 +746,11 @@ formsApp.checkAlert = function(form){
                     return false;
                 }
             })
-            formsApp.toggleAlertTooltip(alert, this, this, 'THIS_FIELD_REQUIRED');
+            formsApp.toggleAlertTooltip(alert, this, this, 'Заполните, пожалуйста, это поле');
         }
     });
     form.find('.ba-form-calendar-field input[required]').each(function(){
-        formsApp.toggleAlertTooltip(!this.value.trim(), this, this.closest('.calendar-field-wrapper'), 'THIS_FIELD_REQUIRED');
+        formsApp.toggleAlertTooltip(!this.value.trim(), this, this.closest('.calendar-field-wrapper'), 'Заполните, пожалуйста, это поле');
     })
     let tooltip = form.find('.ba-form-field-item .ba-alert-tooltip');
     if (tooltip.length) {
@@ -1300,7 +1300,7 @@ formsApp.executeAuthorizePayment = function(form, clone, $this){
         } else if (!btn.status) {
             ['cardNumber', 'expirationDate', 'cardCode'].forEach(function(el){
                 if (!btn[el].filled) {
-                    let key = btn[el].value ? 'ENTER_VALID_VALUE' : 'THIS_FIELD_REQUIRED';
+                    let key = btn[el].value ? 'ENTER_VALID_VALUE' : 'Заполните, пожалуйста, это поле';
                     formsApp.toggleAlertTooltip(true, btn[el], btn[el].closest('.ba-forms-authorize-field-wrapper'), key);
                 }
             });
@@ -1504,10 +1504,6 @@ formsApp.XMLHttpRequestForm = function(form, clone, $this){
         btn.classList.remove('ba-thank-you-animation-in');
         btn.classList.add('ba-thank-you-animation-out');
     };
-    //FIXME: MY CODE
-    /*btn.classList.remove('ba-thank-you-animation-in');
-    btn.classList.add('ba-thank-you-animation-out');*/
-    //end
     xhr.onload = xhr.onerror = function(){
         if (xhr.readyState == 4) {
             setTimeout(function(){
@@ -1578,8 +1574,6 @@ function sendPollToEmail(data, onSuccessCallback){
     console.log(data);
     const drinks = getDrinks(data.getAll('4[]'));
     let message = `Привет! Вот опрос по свадьбе:\n Имя: ${data.get('1')}\nБуду: ${data.get('3')}\nНапитки: ${drinks}\nТрансфер: ${data.get('5')}`;
-    //console.log(message);
-    //setTimeout(onSuccessCallback, 1000);
     window.open("mailto:anyasladkova26@gmail.com?subject=Опрос по свадьбе&body=" + encodeURIComponent(message));
 }
 
@@ -3392,7 +3386,7 @@ class CaptchaHelper
         const captcha = CaptchaFactory.get(element.dataset.captcha);
         const response = await captcha.getResponse(widgetId, element);
         const isValid = response != '';
-        formsApp.toggleAlertTooltip(!isValid, element, element, 'THIS_FIELD_REQUIRED');
+        formsApp.toggleAlertTooltip(!isValid, element, element, 'Заполните, пожалуйста, это поле');
 
         return isValid;
     }
