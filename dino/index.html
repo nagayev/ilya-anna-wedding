@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Custom Dino Game</title>
+  <style>
+    body { margin: 0; overflow: hidden; background: #f7f7f7; }
+    canvas { display: block; margin: 0 auto; background: white; }
+  </style>
+</head>
+<body>
+<canvas id="game" width="800" height="300"></canvas>
+
+<script>
+const canvas = document.getElementById('game');
+const ctx = canvas.getContext('2d');
+
+// ==== НАСТРОЙКИ (ЛЕГКО МЕНЯТЬ) ====
+const isAnya = Math.random() < 0.5;
+const SCORE_FOR_WIN = 100;
+const PLAYER_IMAGE_SRC = isAnya ? 'ann.png' : 'ilya.jpg';
+const DEAD_IMAGE_SRC = isAnya ? 'dinofail.png' : 'dinofail.png'; // картинка при смерти
+const CACTUS_IMAGE_SRC = isAnya ? 'cactus1.png' : 'cactus1.png';
+const MUSIC_SRC = isAnya ? 'ann.mp3' : 'ilya.mp3';
+
+// ==== ЗАГРУЗКА РЕСУРСОВ ====
+const playerImg = new Image();
+const deadImg = new Image();
+const cactusImg = new Image();
+const music = new Audio(MUSIC_SRC);
+music.loop = true;
+
+let assetsLoaded = 0;
+const TOTAL_ASSETS = 3;
+
+function checkStart() {
+  assetsLoaded++;
+  if (assetsLoaded === TOTAL_ASSETS) {
+    loop();
+  }
+}
+
+[playerImg, deadImg, cactusImg].forEach(img => {
+  img.onload = checkStart;
+  img.onerror = () => console.error('Ошибка загрузки изображения');
+});
+
+playerImg.src = PLAYER_IMAGE_SRC;
+deadImg.src = DEAD_IMAGE_SRC;
+cactusImg.src = CACTUS_IMAGE_SRC;
+
+// ==== ИГРОВЫЕ ПЕРЕМЕННЫЕ ====
+let player = { x: 50, y: 220, w: 50, h: 50, vy: 0, jumping: false };
+let gravity = 0.6;
+let obstacles = [];
+let frame = 0;
+let speed = 5;
+let gameOver = false;
+let isWin = false;
+let score = 0;
+
+// ==== УПРАВЛЕНИЕ ====
+document.addEventListener('keydown', () => {
+  if (!player.jumping && !gameOver) {
+    player.vy = -12;
+    player.jumping = true;
+    if (music.paused) music.play().catch(() => {});
+  }
+});
+
+// ==== СПАВН КАКТУСОВ ====
+function spawnObstacle() {
+  obstacles.push({ x: canvas.width, y: 230, w: 30, h: 40 });
+}
+
+// ==== СТОЛКНОВЕНИЕ ====
+function isColliding(a, b) {
+  return a.x < b.x + b.w &&
+         a.x + a.w > b.x &&
+         a.y < b.y + b.h &&
+         a.y + a.h > b.y;
+}
+
+// ==== ОБНОВЛЕНИЕ ====
+function update() {
+  if (gameOver){
+    return;
+  }
+
+  frame++;
+  //score++; // увеличиваем очки
+   
+  if (frame % 10 === 0){
+    score ++;
+  }
+  if (frame % 100 === 0){
+    spawnObstacle();
+  }
+  if (score >= SCORE_FOR_WIN) {
+    gameOver = true;
+  }
+
+  player.vy += gravity;
+  player.y += player.vy;
+
+  if (player.y >= 220) {
+    player.y = 220;
+    player.jumping = false;
+  }
+
+  obstacles.forEach(o => o.x -= speed);
+
+  obstacles.forEach(o => {
+    if (isColliding(player, o)) {
+      gameOver = true;
+      music.pause();
+    }
+  });
+
+  obstacles = obstacles.filter(o => o.x + o.w > 0);
+}
+
+// ==== РЕНДЕР ====
+function draw() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // земля
+  ctx.fillStyle = '#ccc';
+  ctx.fillRect(0, 270, canvas.width, 5);
+
+  // игрок (живой или мертвый)
+  const currentImg = gameOver ? deadImg : playerImg;
+  if (currentImg.complete) {
+    ctx.drawImage(currentImg, player.x, player.y, player.w, player.h);
+  }
+
+  // кактусы
+  obstacles.forEach(o => {
+    if (cactusImg.complete) {
+      ctx.drawImage(cactusImg, o.x, o.y, o.w, o.h);
+    }
+  });
+
+  // счет
+  ctx.fillStyle = 'black';
+  ctx.font = '20px Arial';
+  ctx.fillText('Score: ' + score, 650, 30);
+
+  if (gameOver) {
+    ctx.fillStyle = 'black';
+    ctx.font = '30px Arial';
+    ctx.fillText('GAME OVER', 300, 150);
+  }
+}
+
+// ==== ИГРОВОЙ ЦИКЛ ====
+function loop() {
+  if (gameOver){
+    music.pause();
+    music.currentTime = 0;
+    if (score>=SCORE_FOR_WIN){
+       alert("Вы выиграли!\nНазовите код \"Победитель\" для получения приза!");
+    }
+    return;
+  }
+  update();
+  draw();
+  requestAnimationFrame(loop);
+}
+
+</script>
+</body>
+</html>
