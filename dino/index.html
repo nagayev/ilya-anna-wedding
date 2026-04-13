@@ -81,12 +81,15 @@ let player = {
 // старт на земле
 player.y = groundY() - player.h;
 
-let gravity = 0.6 * scale();
-let speed = 6;
+//hack
+const isDesktop = navigator.userAgent.includes("Windows") || navigator.userAgent.includes("Macintosh");
+let gravity = isDesktop ? 0.25 * scale() : 0.65 * scale(); //0.6
+let speed = isDesktop ? 9 : 6; //6
 let frame = 0;
 let score = 0;
 let gameOver = false;
 let obstacles = [];
+const k = isDesktop ? -14 : -12;
 
 // ===== JUMP =====
 function jump() {
@@ -94,7 +97,7 @@ function jump() {
     location.reload();
   }
   if (!player.jumping && !gameOver) {
-    player.vy = -12*scale();
+    player.vy = k*scale(); //-12*scale()
     player.jumping = true;
     music.play().catch(() => {});
   }
@@ -230,6 +233,11 @@ const total = 3;
 function checkStart() {
   loaded++;
   if (loaded === total){
+    const firstRun = localStorage.getItem("firstRun") === null;
+    if (firstRun) {
+      alert("Совет: победить проще держа телефон горизонтально");
+      localStorage.setItem("firstRun", "true");
+    }
     loop();
   }
 }
